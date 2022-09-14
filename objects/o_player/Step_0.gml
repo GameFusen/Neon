@@ -92,18 +92,23 @@ if(Key_shoot)
 }
 
 //invincibility
-if (alarm[0] > 0) {invincible = true;} else {invincible = false;}
-if !(alarm[0] = -1)  //If the player is invincible 
-and (alarm[1] = -1)  //And, the flicker alarm isn't counting down
-{
-    alarm[1] = flicker_frequency; //Set the flicker alarm to count down
+//You're either hit.
+if (alarm[0] > 0) {
+	invincible = true;
+	var flicker = alarm[0] mod 12;
+	if (flicker >= 6) {
+		visible = false;
+	}
+	else {
+		visible = true;
+	}
 }
-else if (alarm[0] = -1) //Otherwise, the player isn't invincible
-{ 
-    visible = true; //Make the player visible
-	invincible=false
-	alarm[0] = 0;
+//Or you're not. 
+if (alarm[0] <= 0 && invincible) {
+	invincible = false;
+	visible = true;
 }
+
 
 //HP Management
 
